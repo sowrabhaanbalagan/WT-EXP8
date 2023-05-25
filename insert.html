@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        Faculty_Id : <input type="number" id="fid"><br><br>
+        Faculty_Name : <input type="text" id="fname"><br><br>
+        Faculty_Department : <input type="text" id="fdept"><br><br>
+        Faculty_Contact_Number : <input type="number" id="fcon"><br><br>
+        Faculty_Salary : <input type="number" id="fsalary">
+        <input type="button" value="Insert" id="insert">
+    </form>
+    <p id="res"></p>
+    <script>
+        const Faculty_Id = document.getElementById('fid');
+        const Faculty_Name = document.getElementById('fname');
+        const Faculty_Department = document.getElementById('fdept');
+        const Faculty_Contact_Number = document.getElementById('fcon');
+        const Faculty_Salary = document.getElementById('fsalary');
+        const insert = document.getElementById('insert');
+        const result = document.getElementById('res');
+
+        insert.addEventListener('click',() => {
+            var data = {
+                fid: parseInt(fid.value),
+                fname: fname.value,
+                fdept: fdept.value,
+                fcon: parseInt(fcon.value),
+                fsalary: parseInt(fsalary.value),
+            }
+            
+            fetch('http://localhost:2001/api/Faculty', {
+                method: "POST",
+                headers: {
+                    'Content-type':'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => {return res.json()})
+            .then(res => {result.innerText = JSON.stringify(res)});
+        })
+
+    </script>
+</body>
+</html>
